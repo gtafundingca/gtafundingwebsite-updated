@@ -58,7 +58,7 @@ function TestimonialCard({ name, role, text, avatar }: TestimonialItem) {
 	return (
 		<figure
 			className={cn(
-				"relative w-[340px] cursor-pointer overflow-hidden rounded-2xl border p-6 flex flex-col justify-between",
+				"relative w-[280px] min-[360px]:w-[320px] sm:w-[340px] cursor-pointer overflow-hidden rounded-2xl border p-6 flex flex-col justify-between",
 				// light styles
 				"border-zinc-200/60 bg-white hover:bg-zinc-50/50 shadow-xs hover:shadow-md transition-all duration-300",
 				// dark styles
