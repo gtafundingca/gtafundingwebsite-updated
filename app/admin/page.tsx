@@ -479,21 +479,7 @@ export default function AdminPage() {
 								</Button>
 							</form>
 
-							<div className="mt-8 border-t border-zinc-800/80 pt-5 text-center">
-								<p className="text-[11px] text-zinc-400 font-semibold flex items-center justify-center gap-1">
-									<ShieldCheck className="size-3.5 text-cyan-400 shrink-0" />
-									Console Credentials
-								</p>
-								<div className="mt-2.5 flex flex-col items-center gap-1 sm:flex-row sm:justify-center text-[10px] text-zinc-500 font-medium">
-									<span className="bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-zinc-300 font-mono">
-										admin@gtafunding.ca
-									</span>
-									<span className="hidden sm:inline">/</span>
-									<span className="bg-zinc-900 border border-zinc-800 px-2 py-0.5 rounded text-zinc-300 font-mono">
-										admin123
-									</span>
-								</div>
-							</div>
+
 						</div>
 					</div>
 				) : (

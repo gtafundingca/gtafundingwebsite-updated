@@ -7,9 +7,9 @@ import { FullWidthDivider } from "@/components/full-width-divider";
 export function Footer() {
 	return (
 		<footer className="relative mx-auto w-full max-w-[1400px] px-4 sm:px-8 lg:px-10">
-			<div className="grid grid-cols-6 gap-8 py-12 border-t border-zinc-200/60 dark:border-zinc-800/40">
-				<div className="col-span-6 flex flex-col gap-4 md:col-span-3">
-					<a className="w-max border-transparent" href="/">
+			<div className="grid grid-cols-1 gap-8 py-12 border-t border-zinc-200/60 dark:border-zinc-800/40 sm:grid-cols-3 md:grid-cols-6">
+				<div className="flex flex-col gap-4 sm:col-span-3 md:col-span-3">
+					<a className="w-fit border-transparent" href="/">
 						<Logo className="h-16 w-auto" />
 					</a>
 					<p className="max-w-sm text-balance text-muted-foreground text-sm">
@@ -21,12 +21,12 @@ export function Footer() {
 						))}
 					</div>
 				</div>
-				<div className="col-span-2 w-full md:col-span-1">
+				<div className="w-full">
 					<span className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Navigation</span>
 					<div className="mt-2 flex flex-col gap-2">
 						{navigation.map(({ href, title }) => (
 							<a
-								className="w-max text-sm hover:underline text-muted-foreground hover:text-foreground transition-colors"
+								className="w-fit text-sm hover:underline text-muted-foreground hover:text-foreground transition-colors"
 								href={href}
 								key={title}
 							>
@@ -35,12 +35,12 @@ export function Footer() {
 						))}
 					</div>
 				</div>
-				<div className="col-span-2 w-full md:col-span-1">
+				<div className="w-full">
 					<span className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Services</span>
 					<div className="mt-2 flex flex-col gap-2">
 						{services.map(({ href, title }) => (
 							<a
-								className="w-max text-sm hover:underline text-muted-foreground hover:text-foreground transition-colors"
+								className="w-fit text-sm hover:underline text-muted-foreground hover:text-foreground transition-colors"
 								href={href}
 								key={title}
 							>
@@ -49,12 +49,12 @@ export function Footer() {
 						))}
 					</div>
 				</div>
-				<div className="col-span-2 w-full md:col-span-1">
+				<div className="w-full">
 					<span className="text-muted-foreground text-xs font-semibold uppercase tracking-wider">Legal</span>
 					<div className="mt-2 flex flex-col gap-2">
 						{legal.map(({ href, title }) => (
 							<a
-								className="w-max text-sm hover:underline text-muted-foreground hover:text-foreground transition-colors"
+								className="w-fit text-sm hover:underline text-muted-foreground hover:text-foreground transition-colors"
 								href={href}
 								key={title}
 							>
