@@ -98,7 +98,7 @@ export default function AdminPage() {
 						if (parsed.type === "crown-capital-mca") {
 							isCrownCapitalMca = true;
 							mcaDetails = parsed;
-							parsedPurpose = `Crown Capital MCA Application - ${parsed.businessName}`;
+							parsedPurpose = `GTA Funding MCA Application - ${parsed.businessName}`;
 						}
 					}
 				} catch (e) {
@@ -694,7 +694,7 @@ export default function AdminPage() {
 																		</span>
 																		{item.isCrownCapitalMca && (
 																			<span className="text-[8px] bg-blue-500/10 border border-blue-500/20 text-blue-400 font-black px-1.5 py-0.25 rounded-md uppercase tracking-wider shrink-0 animate-pulse">
-																				Crown Capital MCA
+																				GTA Funding MCA
 																			</span>
 																		)}
 																		<span className="text-[10px] text-zinc-500 font-bold flex items-center gap-1">
@@ -823,7 +823,7 @@ export default function AdminPage() {
 																						<span className="font-bold text-white group-hover/row:text-cyan-400 transition-colors truncate">{item.name}</span>
 																						{item.isCrownCapitalMca && (
 																							<span className="text-[8px] bg-blue-500/10 border border-blue-500/20 text-blue-400 font-black px-1.5 py-0.25 rounded-md uppercase tracking-wider shrink-0">
-																								Crown Capital MCA
+																								GTA Funding MCA
 																							</span>
 																						)}
 																					</div>
@@ -894,11 +894,11 @@ export default function AdminPage() {
 																		<tr className="bg-zinc-950/20">
 																			<td colSpan={7} className="p-0 border-b border-[#1C1C1C]">
 																				{item.isCrownCapitalMca && item.mcaDetails ? (
-																					/* Rich Crown Capital MCA Details Display */
+																					/* Rich GTA Funding MCA Details Display */
 																					<div className="px-6 py-5 border-t border-dashed border-[#1C1C1C] space-y-5 text-xs">
 																						<div className="flex items-center gap-2 text-blue-400 font-bold uppercase tracking-wider border-b border-zinc-900 pb-2">
 																							<Building className="size-4" />
-																							<span>Crown Capital MCA Business Information</span>
+																							<span>GTA Funding MCA Business Information</span>
 																						</div>
 																						
 																						<div className="grid grid-cols-1 md:grid-cols-3 gap-4">
@@ -1166,7 +1166,7 @@ export default function AdminPage() {
 						{/* Scrollable details */}
 						<div className="p-5 sm:p-6 overflow-y-auto space-y-4 sm:space-y-5 flex-1 text-xs">
 							{selectedInquiry.isCrownCapitalMca && selectedInquiry.mcaDetails ? (
-								/* Crown Capital MCA details display inside Modal */
+								/* GTA Funding MCA details display inside Modal */
 								<>
 									{/* Profile Card */}
 									<div className="bg-[#121212]/50 border border-zinc-800/60 rounded-2xl p-4 sm:p-4.5 space-y-4">
@@ -1286,13 +1286,83 @@ export default function AdminPage() {
 												<span className="font-black text-sm text-white mt-1 block">{selectedInquiry.revenue}</span>
 											</div>
 										</div>
+										<div className="grid grid-cols-3 gap-4 border-t border-[#1C1C1C] pt-3">
+											<div>
+												<span className="text-[10px] font-bold text-zinc-550 uppercase tracking-widest block">Overdraft Protection</span>
+												<span className="font-extrabold text-white mt-1 block text-xs">{selectedInquiry.mcaDetails.overdraftProtection || "N/A"}</span>
+											</div>
+											<div>
+												<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block">Bank Accounts</span>
+												<span className="font-extrabold text-white mt-1 block text-xs">{selectedInquiry.mcaDetails.numberOfBankAccounts || "N/A"}</span>
+											</div>
+											<div>
+												<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block">Unsecured Debt</span>
+												<span className="font-extrabold text-white mt-1 block text-xs">{selectedInquiry.mcaDetails.hasUnsecuredDebt || "N/A"}</span>
+											</div>
+										</div>
+										{selectedInquiry.mcaDetails.hasUnsecuredDebt === "Yes" && (
+											<div className="grid grid-cols-2 gap-4 border-t border-[#1C1C1C] pt-3 animate-in slide-in-from-top-1 duration-200">
+												<div>
+													<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block">Unsecured Lenders</span>
+													<span className="font-extrabold text-white mt-1 block text-xs truncate" title={selectedInquiry.mcaDetails.unsecuredDebtLenders}>{selectedInquiry.mcaDetails.unsecuredDebtLenders || "N/A"}</span>
+												</div>
+												<div>
+													<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block">Total Unsecured Owing</span>
+													<span className="font-extrabold text-white mt-1 block text-xs">{selectedInquiry.mcaDetails.unsecuredDebtAmount || "N/A"}</span>
+												</div>
+											</div>
+										)}
 										<div className="border-t border-[#1C1C1C] pt-3">
-											<span className="text-[10px] font-bold text-zinc-505 uppercase tracking-widest block mb-1">Primary Use of Funds</span>
+											<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block mb-1">Primary Use of Funds</span>
 											<p className="text-zinc-300 leading-relaxed font-medium mt-2 flex items-start gap-2.5 bg-[#121212]/50 border border-zinc-800/60 p-3 rounded-xl">
 												<FileText className="size-4 text-zinc-555 shrink-0 mt-0.5" />
 												{selectedInquiry.mcaDetails.useOfFunds}
 											</p>
 										</div>
+										{selectedInquiry.mcaDetails.signatureFile && (
+											<div className="border-t border-[#1C1C1C] pt-3">
+												<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block mb-1">Owner's Signature</span>
+												<div className="bg-[#121212]/50 border border-zinc-800/60 p-3 rounded-xl flex flex-col gap-2 mt-2">
+													<div className="flex items-center gap-2 text-xs text-zinc-400">
+														<FileText className="size-4 text-blue-500" />
+														<span className="font-semibold text-white truncate text-xs">{selectedInquiry.mcaDetails.signatureFileName || "signature.png"}</span>
+													</div>
+													{selectedInquiry.mcaDetails.signatureFile.startsWith("data:image/") ? (
+														<div className="bg-white rounded-lg p-3 border border-zinc-200 flex justify-center items-center max-h-[100px] overflow-hidden w-fit max-w-[200px]">
+															<img
+																src={selectedInquiry.mcaDetails.signatureFile}
+																alt="Owner Signature"
+																className="max-h-[80px] object-contain"
+															/>
+														</div>
+													) : (
+														<span className="text-[10px] text-zinc-500 font-mono">PDF Signature (Cannot preview)</span>
+													)}
+												</div>
+											</div>
+										)}
+										{selectedInquiry.mcaDetails.bankStatements && selectedInquiry.mcaDetails.bankStatements.length > 0 && (
+											<div className="border-t border-[#1C1C1C] pt-3">
+												<span className="text-[10px] font-bold text-zinc-555 uppercase tracking-widest block mb-1">Uploaded Bank Statements</span>
+												<div className="space-y-2 mt-2">
+													{selectedInquiry.mcaDetails.bankStatements.map((stmt: any, idx: number) => (
+														<div key={idx} className="bg-[#121212]/50 border border-zinc-800/60 p-3 rounded-xl flex items-center justify-between gap-3">
+															<div className="flex items-center gap-2 text-xs text-zinc-400 min-w-0 flex-1">
+																<FileText className="size-4 text-blue-500 shrink-0" />
+																<span className="font-semibold text-white truncate text-xs" title={stmt.fileName}>{stmt.fileName}</span>
+															</div>
+															<a
+																href={stmt.fileData}
+																download={stmt.fileName}
+																className="text-[10px] bg-zinc-800 hover:bg-zinc-700 text-white font-bold px-3 py-1.5 rounded-lg border border-zinc-700 transition-colors shrink-0"
+															>
+																Download
+															</a>
+														</div>
+													))}
+												</div>
+											</div>
+										)}
 									</div>
 								</>
 							) : (

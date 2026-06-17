@@ -43,7 +43,7 @@ const contactInfo: ContactInfoItem[] = [
 	{
 		icon: <MapPin />,
 		label: "Head office",
-		value: "Toronto, ON",
+		value: "Toronto",
 		description: "Canada-wide · Remote-first advisors in your time zone.",
 	},
 	{
@@ -55,7 +55,7 @@ const contactInfo: ContactInfoItem[] = [
 	{
 		icon: <PhoneCall />,
 		label: "Advisor line",
-		value: "(888) 386-3177",
+		value: "905-291-7216",
 		description: "Mon–Fri · 9am–7pm ET · No menus — you reach a human.",
 	},
 ];
