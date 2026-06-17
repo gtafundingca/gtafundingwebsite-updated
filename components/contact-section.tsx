@@ -44,7 +44,7 @@ const contactInfo: ContactInfoItem[] = [
 		icon: <MapPin />,
 		label: "Head office",
 		value: "Toronto",
-		description: "Canada-wide · Remote-first advisors in your time zone.",
+		description: "Canada-wide",
 	},
 	{
 		icon: <Clock />,
