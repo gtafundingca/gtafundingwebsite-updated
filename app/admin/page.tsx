@@ -95,7 +95,7 @@ export default function AdminPage() {
 				try {
 					if (item.purpose && item.purpose.trim().startsWith("{")) {
 						const parsed = JSON.parse(item.purpose);
-						if (parsed.type === "crown-capital-mca") {
+						if (parsed.type === "crown-capital-mca" || parsed.type === "gta-funding-mca") {
 							isCrownCapitalMca = true;
 							mcaDetails = parsed;
 							parsedPurpose = `GTA Funding MCA Application - ${parsed.businessName}`;

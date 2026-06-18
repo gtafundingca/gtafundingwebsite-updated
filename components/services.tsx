@@ -279,7 +279,7 @@ export function ServicesSection() {
 										)}
 										onClick={() => {
 											if (service.id === "mca") {
-												window.location.href = "/crown-capital-mca";
+												window.location.href = "/gta-funding-mca";
 											} else {
 												handleOpenApply(service);
 											}
@@ -373,7 +373,7 @@ export function ServicesSection() {
 									className="w-full sm:w-auto rounded-full bg-zinc-950 hover:bg-zinc-900 dark:bg-zinc-50 dark:hover:bg-zinc-200 text-white dark:text-zinc-950 px-6 py-3 text-sm font-semibold shadow-xs cursor-pointer"
 									onClick={() => {
 										if (activeOverview.id === "mca") {
-											window.location.href = "/crown-capital-mca";
+											window.location.href = "/gta-funding-mca";
 										} else {
 											handleOpenApply(activeOverview);
 										}

@@ -10,7 +10,7 @@ The portal features a consumer-facing landing page with service request wizards,
 
 ### 🏦 Consumer Portal & Services
 * **Service Redirection**: Interactive cards for all funding options (Merchant Cash Advance, Women Entrepreneur Loan, Grant Advisory, Startup Business Loan) with targeted routing.
-* **GTA Funding MCA Application Form**: A dedicated multi-step application at `/crown-capital-mca` featuring:
+* **GTA Funding MCA Application Form**: A dedicated multi-step application at `/gta-funding-mca` featuring:
   * **Step 1 (Business Info)**: Business names, address, phone number validation & automatic `(000) 000-0000` formatting, incorporation date, entity type selector (with custom inputs), employee counts, and property type.
   * **Step 2 (Funding Details)**: Funding amount, average monthly revenue, primary use of funds, and primary owner contact info.
   * **Step 3 (Success confirmation)**: Summary of submitted details.
@@ -119,7 +119,7 @@ npm run lint
 ├── app/
 │   ├── admin/                # Admin Console dashboard
 │   ├── contact/              # Contact and General Inquiry route
-│   ├── crown-capital-mca/    # GTA Funding MCA 3-Step Form
+│   ├── gta-funding-mca/      # GTA Funding MCA Form
 │   ├── globals.css           # Global CSS variables & UI styles
 │   ├── layout.tsx            # Main layout configuration
 │   └── page.tsx              # Home / Landing page

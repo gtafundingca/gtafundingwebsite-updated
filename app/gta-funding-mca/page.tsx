@@ -528,7 +528,7 @@ export default function CrownCapitalMcaPage() {
 			
 			// Structured metadata container
 			const metadata = {
-				type: "crown-capital-mca",
+				type: "gta-funding-mca",
 				businessName: formData.businessName,
 				operatingName: formData.operatingName,
 				address: {
