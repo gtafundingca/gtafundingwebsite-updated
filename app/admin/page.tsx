@@ -36,7 +36,8 @@ import {
 	ShieldCheck,
 	Menu,
 	X,
-	Phone
+	Phone,
+	Download
 } from "lucide-react";
 
 // Types
@@ -237,6 +238,110 @@ export default function AdminPage() {
 			} catch (err: any) {
 				alert(err.message || "Failed to delete inquiry.");
 			}
+		}
+	};
+
+	const handleDownloadPDF = async () => {
+		if (!selectedInquiry) return;
+		
+		try {
+			const { jsPDF } = await import("jspdf");
+			const doc = new jsPDF();
+			let y = 20;
+			
+			doc.setFontSize(20);
+			doc.text("GTA Funding Application", 20, y);
+			y += 15;
+			
+			doc.setFontSize(12);
+			
+			if (selectedInquiry.isCrownCapitalMca && selectedInquiry.mcaDetails) {
+				const details = selectedInquiry.mcaDetails;
+				
+				doc.setFont("helvetica", "bold");
+				doc.text("Business Information", 20, y);
+				y += 10;
+				
+				doc.setFont("helvetica", "normal");
+				doc.text(`Legal Business Name: ${details.businessName || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Operating Name: ${details.operatingName || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Owner Name: ${selectedInquiry.name || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Business Phone: ${details.businessPhone || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Business Email: ${details.businessEmail || 'N/A'}`, 20, y); y += 8;
+				
+				if (details.address) {
+					doc.text(`Address: ${details.address.street || ''} ${details.address.line2 || ''}, ${details.address.city || ''}, ${details.address.state || ''} ${details.address.zip || ''}`, 20, y); y += 8;
+				}
+				
+				doc.text(`Incorporation Date: ${details.incorporationDate || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Business Number: ${details.businessNumber || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Website: ${details.website || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Industry: ${details.industry || 'N/A'}`, 20, y); y += 8;
+				
+				y += 10;
+				doc.setFont("helvetica", "bold");
+				doc.text("Funding Details", 20, y);
+				y += 10;
+				
+				doc.setFont("helvetica", "normal");
+				doc.text(`Amount Requested: ${selectedInquiry.amount || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Average Monthly Revenue: ${selectedInquiry.revenue || 'N/A'}`, 20, y); y += 8;
+				
+				const splitPurpose = doc.splitTextToSize(`Use of Funds: ${details.useOfFunds || 'N/A'}`, 170);
+				doc.text(splitPurpose, 20, y); y += (8 * splitPurpose.length);
+				
+				doc.text(`Overdraft Protection: ${details.overdraftProtection || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Unsecured Debt: ${details.hasUnsecuredDebt || 'N/A'}`, 20, y); y += 8;
+				if (details.hasUnsecuredDebt === 'Yes') {
+					doc.text(`Unsecured Lenders: ${details.unsecuredDebtLenders || 'N/A'}`, 20, y); y += 8;
+					doc.text(`Unsecured Debt Amount: ${details.unsecuredDebtAmount || 'N/A'}`, 20, y); y += 8;
+				}
+				
+				if (details.signatureFile) {
+					y += 10;
+					doc.setFont("helvetica", "bold");
+					doc.text("Signature", 20, y);
+					y += 10;
+					if (details.signatureFile.startsWith("data:image/")) {
+						// Extract image format
+						const formatMatch = details.signatureFile.match(/data:image\/([^;]+);/);
+						const format = formatMatch ? formatMatch[1].toUpperCase() : 'PNG';
+						
+						if (y + 40 > 280) {
+							doc.addPage();
+							y = 20;
+						}
+						
+						doc.addImage(details.signatureFile, format, 20, y, 100, 40);
+					} else {
+						doc.setFont("helvetica", "normal");
+						doc.text("Signature file provided (cannot render in PDF).", 20, y);
+					}
+				}
+
+			} else {
+				// Standard form
+				doc.setFont("helvetica", "bold");
+				doc.text("Applicant Information", 20, y);
+				y += 10;
+				
+				doc.setFont("helvetica", "normal");
+				doc.text(`Name: ${selectedInquiry.name || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Email: ${selectedInquiry.email || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Phone: ${selectedInquiry.phone || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Time in Business: ${selectedInquiry.timeInBusiness || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Revenue: ${selectedInquiry.revenue || 'N/A'}`, 20, y); y += 8;
+				doc.text(`Amount Requested: ${selectedInquiry.amount || 'N/A'}`, 20, y); y += 8;
+				
+				y += 5;
+				const splitPurpose = doc.splitTextToSize(`Purpose: ${selectedInquiry.purpose || 'N/A'}`, 170);
+				doc.text(splitPurpose, 20, y);
+			}
+			
+			doc.save(`${selectedInquiry.name.replace(/\s+/g, '_')}_Application.pdf`);
+		} catch (err) {
+			console.error("Error generating PDF", err);
+			alert("Failed to generate PDF. Check console for details.");
 		}
 	};
 
@@ -1450,6 +1555,14 @@ export default function AdminPage() {
 							</Button>
 							
 							<div className="flex items-center gap-2">
+								<Button
+									variant="outline"
+									onClick={handleDownloadPDF}
+									className="rounded-xl border-zinc-800 bg-[#121212] hover:bg-zinc-800 text-zinc-300 font-bold text-xs cursor-pointer h-9 px-3 sm:px-3.5 flex items-center gap-1.5"
+								>
+									<Download className="size-3.5" />
+									PDF
+								</Button>
 								<Button
 									variant="outline"
 									onClick={() => handleUpdateStatus(selectedInquiry.id, "Declined")}
